@@ -197,10 +197,16 @@ namespace WatchAPI.Controllers
             return Json(watchList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetByName(string text)
+        public JsonResult GetByName(string query)
         {
-            var watchList = ServiceUoW.WatchService.GetByName(text);
+            var watchList = ServiceUoW.WatchService.GetByName(query);
             return Json(watchList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetById(int id)
+        {
+            var watch = ServiceUoW.WatchService.GetById(id);
+            return Json(watch, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WatchAPI.Repositories
         public IEnumerable<WatchDb> GetByName(string name)
         {
             return Context.Watches.Where(w => w.Name.ToLower()
-                    .StartsWith(name.ToLower()))
+                    .Contains(name.ToLower()))
                     .ToList();
         }
 

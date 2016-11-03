@@ -11,13 +11,17 @@ angular.module('smartTimeApp.watch', ['ngRoute'])
 
     .controller('WatchCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
         var id = $routeParams.watchId;
-        $http.get('data/smartwatch.json').success(function(data) {
-            $scope.watch = _.find(data, function(el) {
-                return el.id == id;
-            });
-            $scope.mainImgUrl = $scope.watch.pictureUrls[0];
-            $scope.selectedColor = $scope.watch.colors[0];
-            $scope.selectedScreenSize = $scope.watch.hasScreen ? $scope.watch.screenSizesMm[0] : undefined;
+        var conf = {
+            params: {id: id}
+        }
+        $http.get('http://localhost:3444/Shop/GetById', conf).success(function(data) {
+            // $scope.watch = _.find(data, function(el) {
+            //     return el.id == id;
+            // });
+            $scope.watch = data;
+            $scope.mainImgUrl = $scope.watch.PictureUrls[0];
+            $scope.selectedColor = $scope.watch.Colors[0];
+            $scope.selectedScreenSize = $scope.watch.HasScreen ? $scope.watch.ScreenSizesMm[0] : undefined;
         });
 
         $scope.setImage = function (imageUrl) {
