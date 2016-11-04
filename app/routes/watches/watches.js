@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('smartTimeApp.watches', ['ngRoute', 'ui.bootstrap'])
+angular.module('smartTimeApp.watches', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/watches', {
@@ -9,7 +9,7 @@ angular.module('smartTimeApp.watches', ['ngRoute', 'ui.bootstrap'])
         });
     }])
 
-    .controller('WatchesCtrl', ['$scope', '$http', function($scope, $http) {
+    .controller('WatchesCtrl', ['$scope', '$http', '$log', function($scope, $http, $log) {
         $http.get('http://localhost:3444/Shop/GetAll').success(function(data) {
             $scope.watches = data;
         });
@@ -60,58 +60,20 @@ angular.module('smartTimeApp.watches', ['ngRoute', 'ui.bootstrap'])
         $scope.setItemsPerPage = function(num) {
             $scope.itemsPerPage = num;
             $scope.currentPage = 1; //reset to first paghe
-        }
-
-        $scope.filteredTodos = []
-            ,$scope.currentPage = 1
-            ,$scope.numPerPage = 10
-            ,$scope.maxSize = 5;
-
-        $scope.makeTodos = function() {
-            // $scope.todos = [];
-            // for (var i=1;i<=1000;i++) {
-            //     $scope.todos.push({ text:'todo '+i, done:false});
-            // }
-        };
-        $scope.makeTodos();
-
-        $scope.numPages = function () {
-            // return Math.ceil($scope.todos.length / $scope.numPerPage);
-            return 3;
         };
 
-        $scope.$watch('currentPage + numPerPage', function() {
-            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-                , end = begin + $scope.numPerPage;
+        $scope.totalItems = 64;
+        $scope.currentPage = 4;
 
-            $scope.filteredTodos = $scope.todos.slice(begin, end);
-        });
+        $scope.setPage = function (pageNo) {
+            $scope.currentPage = pageNo;
+        };
+
+        $scope.pageChanged = function() {
+            $log.log('Page changed to: ' + $scope.currentPage);
+        };
+
+        $scope.maxSize = 5;
+        $scope.bigTotalItems = 175;
+        $scope.bigCurrentPage = 1;
     }]);
-
-var todos = angular.module('todos', ['ui.bootstrap']);
-
-todos.controller('TodoController', function($scope) {
-    $scope.filteredTodos = []
-        ,$scope.currentPage = 1
-        ,$scope.numPerPage = 10
-        ,$scope.maxSize = 5;
-
-    $scope.makeTodos = function() {
-        $scope.todos = [];
-        for (var i=1;i<=1000;i++) {
-            $scope.todos.push({ text:'todo '+i, done:false});
-        }
-    };
-    $scope.makeTodos();
-
-    $scope.numPages = function () {
-        return Math.ceil($scope.todos.length / $scope.numPerPage);
-    };
-
-    $scope.$watch('currentPage + numPerPage', function() {
-        var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-            , end = begin + $scope.numPerPage;
-
-        $scope.filteredTodos = $scope.todos.slice(begin, end);
-    });
-});

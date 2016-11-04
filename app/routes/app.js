@@ -2,6 +2,7 @@
 
 var smartTimeApp =  angular.module('smartTimeApp', [
     'ngRoute',
+    'ngAnimate', 'ui.bootstrap',
     'smartTimeApp.watches',
     'smartTimeApp.watch'
 ]).

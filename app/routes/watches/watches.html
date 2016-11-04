@@ -55,8 +55,22 @@
         </div>
         <hr/>
     </div>
-    <div data-pagination="" data-num-pages="numPages()"
-         data-current-page="currentPage" data-max-size="maxSize"
-         data-boundary-links="true"></div>
-
 </div>
+
+    <h4>Default</h4>
+    <!--<div uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></div>-->
+    <!--<div uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></div>-->
+    <!--<div uib-pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage"></div>-->
+    <!--<div uib-pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></div>-->
+    <!--<pre>The selected page no: {{currentPage}}</pre>-->
+    <!--<button type="button" class="btn btn-info" ng-click="setPage(3)">Set current page to: 3</button>-->
+
+    <!--<hr />-->
+    <!--<h4>Pager</h4>-->
+    <!--<uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager>-->
+
+    <!--<hr />-->
+    <!--<h4>Limit the maximum visible buttons</h4>-->
+    <div uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"></div>
+    <!--<div uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></div>-->
+    <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
