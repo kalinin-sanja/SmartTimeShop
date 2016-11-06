@@ -11,10 +11,10 @@ namespace WatchAPI.Services
         {
         }
 
-        public IEnumerable<Watch> GetByName(string query, string field, int offset, int limit, bool desc)
+        public IEnumerable<Watch> GetByQuery(string query, string field, int offset, int limit, bool desc)
         {
             var dbEntries = RepositoryUoW.WatchRepository
-                .GetByName(query, field, offset, limit, desc);
+                .GetByQuery(query, field, offset, limit, desc);
             return dbEntries.ToList().Select(w => MapperUoW.WatchMapper.Map(w));
         }
 
@@ -35,20 +35,6 @@ namespace WatchAPI.Services
         public int GetWatchCount(string query)
         {
             return RepositoryUoW.WatchRepository.GetWatchCount(query);
-        }
-
-        public IEnumerable<Watch> GetWatchesOrderByPrice(int offset, int limit, bool desc)
-        {
-            var dbEntries = RepositoryUoW.WatchRepository
-                .GetWatchesOrderByPrice(offset, limit, desc);
-            return dbEntries.Select(w => MapperUoW.WatchMapper.Map(w));
-        }
-
-        public IEnumerable<Watch> GetWatchesOrderByName(int offset, int limit, bool desc)
-        {
-            var dbEntries = RepositoryUoW.WatchRepository
-                .GetWatchesOrderByName(offset, limit, desc);
-            return dbEntries.Select(w => MapperUoW.WatchMapper.Map(w));
         }
     }
 }

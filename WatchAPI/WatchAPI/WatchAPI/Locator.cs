@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WatchAPI.Mappers;
+﻿using WatchAPI.Mappers;
 using WatchAPI.Models;
 using WatchAPI.Repositories;
 using WatchAPI.Services;

@@ -10,14 +10,15 @@ angular.module('smartTimeApp.watches', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
     }])
 
     .controller('WatchesCtrl', ['$scope', '$http', function($scope, $http) {
+        $scope.host = 'http://localhost:3444';
         $scope.getWatchCount = function () {
             var conf = {
                 params: {
                     query: $scope.searchText
                 }
             };
-            $http.get('http://localhost:3444/Shop/GetWatchCount', conf).success(function(data) {
-                $scope.bigTotalItems = data;
+            $http.get($scope.host + '/Shop/GetWatchCount', conf).success(function(data) {
+                $scope.itemsCount = data;
             })
         };
         $scope.getWatchCount();
@@ -57,7 +58,7 @@ angular.module('smartTimeApp.watches', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
                     desc: $scope.orderReverse
                 }
             };
-            $http.get('http://localhost:3444/Shop/GetByName', conf).success(function(data) {
+            $http.get($scope.host + '/Shop/GetByQuery', conf).success(function(data) {
                 $scope.watches = data;
             });
         };
@@ -65,49 +66,9 @@ angular.module('smartTimeApp.watches', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
         $scope.currentPage = 1;
         $scope.itemsPerPage = 5;
         $scope.maxSize = 5;
-        $scope.bigCurrentPage = 1;
-
-        $scope.getWatchesOrderByName = function (offset, limit, desc) {
-            var conf = {
-                params: {
-                    offset: offset,
-                    limit: limit,
-                    desc: desc
-                }
-            };
-            $http.get('http://localhost:3444/Shop/GetWatchesOrderByName', conf).success(function(data) {
-                $scope.watches = data;
-            });
-        };
-
-        $scope.getWatchesOrderByPrice = function (offset, limit, desc) {
-            var conf = {
-                params: {
-                    offset: offset,
-                    limit: limit,
-                    desc: desc
-                }
-            };
-            $http.get('http://localhost:3444/Shop/GetWatchesOrderByPrice', conf).success(function(data) {
-                $scope.watches = data;
-            });
-        };
-
-        // $scope.getWatchesOrderByName(0, $scope.itemsPerPage, $scope.orderReverse);
         $scope.getWatches();
 
         $scope.pageChanged = function() {
-            // var offset = ($scope.currentPage - 1)*$scope.itemsPerPage;
-            //
-            // if ($scope.orderField != 'Price')
-            //     $scope.getWatchesOrderByName(offset,
-            //         $scope.itemsPerPage,
-            //         $scope.orderReverse);
-            // else
-            //     $scope.getWatchesOrderByPrice(offset,
-            //         $scope.itemsPerPage,
-            //         $scope.orderReverse);
             $scope.getWatches();
         };
-
     }]);

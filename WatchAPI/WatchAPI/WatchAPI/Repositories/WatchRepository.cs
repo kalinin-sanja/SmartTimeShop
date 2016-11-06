@@ -12,7 +12,7 @@ namespace WatchAPI.Repositories
         {
         }
 
-        public IEnumerable<WatchDb> GetByName(string name, string field, int offset, int limit, bool desc)
+        public IEnumerable<WatchDb> GetByQuery(string name, string field, int offset, int limit, bool desc)
         {
             IQueryable<WatchDb> watches = Context.Watches;
 
@@ -42,30 +42,6 @@ namespace WatchAPI.Repositories
         public IEnumerable<WatchDb> GetAll()
         {
             return Context.Watches.Select(w => w).ToList();
-        }
-
-        public IEnumerable<WatchDb> GetWatchesOrderByPrice(int offset, int limit, bool desc)
-        {
-            var watches = Context.Watches.Select(w => w);
-            watches = desc
-                ? watches.OrderByDescending(w => w.Price)
-                : watches.OrderBy(w => w.Price);
-                
-            return watches.Skip(offset)
-                        .Take(limit)
-                        .ToList();
-        }
-
-        public IEnumerable<WatchDb> GetWatchesOrderByName(int offset, int limit, bool desc)
-        {
-            var watches = Context.Watches.Select(w => w);
-            watches = desc
-                ? watches.OrderByDescending(w => w.Name)
-                : watches.OrderBy(w => w.Name);
-
-            return watches.Skip(offset)
-                        .Take(limit)
-                        .ToList();
         }
 
         public int GetWatchCount(string query)
