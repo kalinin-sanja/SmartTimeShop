@@ -197,9 +197,10 @@ namespace WatchAPI.Controllers
             return Json(watchList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetByName(string query)
+        public JsonResult GetByName(string query, string field, int offset, int limit, bool desc)
         {
-            var watchList = ServiceUoW.WatchService.GetByName(query);
+            var watchList = ServiceUoW.WatchService
+                .GetByName(query, field, offset, limit, desc);
             return Json(watchList, JsonRequestBehavior.AllowGet);
         }
 
@@ -207,6 +208,24 @@ namespace WatchAPI.Controllers
         {
             var watch = ServiceUoW.WatchService.GetById(id);
             return Json(watch, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWatchCount(string query)
+        {
+            var watchCount = ServiceUoW.WatchService.GetWatchCount(query);
+            return Json(watchCount, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWatchesOrderByPrice(int offset, int limit, bool desc = false)
+        {
+            var watchList = ServiceUoW.WatchService.GetWatchesOrderByPrice(offset, limit, desc);
+            return Json(watchList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetWatchesOrderByName(int offset, int limit, bool desc = false)
+        {
+            var watchList = ServiceUoW.WatchService.GetWatchesOrderByName(offset, limit, desc);
+            return Json(watchList, JsonRequestBehavior.AllowGet);
         }
     }
 }
